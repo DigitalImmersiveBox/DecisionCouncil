@@ -5,6 +5,11 @@ public sealed class AgentDefinition
 {
     public string Id { get; set; } = "";
     public string Name { get; set; } = "";
+
+    /// <summary>Council category the agent is grouped under (see <see cref="AgentCategories"/>). Never empty after loading.</summary>
+    public string Category { get; set; } = AgentCategories.Other;
+
+    /// <summary>Place inside its category: the lead comes first.</summary>
     public int Order { get; set; } = 100;
     public bool Enabled { get; set; } = true;
     public int WordLimit { get; set; } = 250;

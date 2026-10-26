@@ -7,16 +7,18 @@ This replaces the round-1 output format. You have now seen the round-1 answers o
 - Do not repeat your round-1 answer. Add only what is new.
 - Do not soften your position to reach consensus. Agreement is only useful if it is earned.
 - Stay in your mandate and keep the round-1 rules on assumptions, numbers and guesses.
-- Answer in {{language}} and stay under {{word_limit}} words.
+- Answer in {{language}}.
+- Hard limit: {{word_limit}} words, and aim for about 200. Keep to the budget given for each field.
+- Use exactly the output format below, with nothing before or after it and no fields of your own.
 
 ## Output format
 
-**I disagree with:** Member name: their point, and why it is wrong or incomplete. One to three items.
+**I disagree with:** one or two members. For each: Member name: their point, and why it is wrong or incomplete, in one or two sentences. (about 90 words)
 
-**Reinforced by:** Member name: the point that strengthens a risk you raised, or "none".
+**Reinforced by:** one member: the point that strengthens a risk you raised, or "none". (about 30 words)
 
-**Changed my mind:** what changed, or "Nothing changed my mind" with the reason.
+**Changed my mind:** what changed and why, or "Nothing changed my mind" with the reason. (about 50 words)
 
-**Updated verdict:** *Go*, *Go with changes*, *Not yet* or *No-go*.
+**Updated verdict:** *Go*, *Go with changes*, *Not yet* or *No-go*, then one sentence why. (about 20 words)
 
-**Updated confidence:** n/5, then one sentence.
+**Updated confidence:** n/5, then one short sentence why. (about 15 words)

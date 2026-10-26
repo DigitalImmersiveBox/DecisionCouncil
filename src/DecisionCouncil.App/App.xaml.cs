@@ -36,6 +36,7 @@ public partial class App : Application
             // --data <folder> runs against another data folder without touching saved settings (handy for demos and tests).
             var i = Array.IndexOf(e.Args, "--data");
             var overridden = i >= 0 && i + 1 < e.Args.Length;
+            if (settings.UpgradedOnLoad && !overridden) settings.Save();
             if (overridden) settings.DataFolder = System.IO.Path.GetFullPath(e.Args[i + 1]);
             council = new Council(settings) { PersistSettings = !overridden };
         }

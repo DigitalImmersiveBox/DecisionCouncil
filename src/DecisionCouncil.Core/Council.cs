@@ -15,13 +15,16 @@ public sealed class Council
     public UsageGuard Usage { get; }
     public List<string> SeededFiles { get; }
 
+    /// <summary>Default files the user never edited that were replaced by a newer version at start-up.</summary>
+    public List<string> UpdatedFiles { get; } = [];
+
     /// <summary>False when the data folder was overridden for one run (--data), so saving never writes that folder into settings.json.</summary>
     public bool PersistSettings { get; init; } = true;
 
     public Council(AppSettings settings)
     {
         Settings = settings;
-        SeededFiles = DataFolder.EnsureSeeded(settings);
+        SeededFiles = DataFolder.EnsureSeeded(settings, UpdatedFiles);
         Store = new CouncilStore(settings.DatabaseFile);
         Store.CloseAbandonedDebates();
         Usage = new UsageGuard(Store, () => Settings.MonthlyLimitUsd, () => Settings.WarnAtPercent);

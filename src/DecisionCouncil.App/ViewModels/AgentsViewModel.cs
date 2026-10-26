@@ -128,7 +128,7 @@ public sealed class AgentsViewModel : ObservableObject, IPage
         _selected = null;
         Files.Clear();
         foreach (var a in agents)
-            Files.Add(new EditableFileViewModel(a.FilePath, "Agents", a, OnEnabledChanged));
+            Files.Add(new EditableFileViewModel(a.FilePath, a.Category, a, OnEnabledChanged));
         foreach (var f in new[] { PromptLibrary.SharedRulesFile, PromptLibrary.Round2File, PromptLibrary.SynthesizerFile })
         {
             var path = System.IO.Path.Combine(_main.Council.Settings.PromptsFolder, f);

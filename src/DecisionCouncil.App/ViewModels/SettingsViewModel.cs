@@ -19,6 +19,8 @@ public sealed class SettingsViewModel : ObservableObject, IPage
     private string _signInStatus = "";
     private bool _isSignedIn;
     private int _signInRequest;
+    private bool _signInChecked;
+    private bool _onPlan;
     private UsageState? _usage;
 
     public SettingsViewModel(MainViewModel main)
@@ -62,9 +64,18 @@ public sealed class SettingsViewModel : ObservableObject, IPage
     public bool IsCliProvider { get => IsCli; set { if (value) Provider = ProviderKind.ClaudeCli; } }
     public bool Round2Off { get => !Round2Default; set { if (value) Round2Default = false; } }
 
-    public string UsageFigure => $"${_usage?.Month.CostUsd ?? 0:0.00}";
+    public string UsageFigure => $"≈${_usage?.Month.CostUsd ?? 0:0.00}";
     public string UsageDetail => _usage is null ? "" :
-        _usage.HasLimit ? $"of ${_usage.LimitUsd:0.00} this month · {_usage.Month.Calls} calls" : $"this month · {_usage.Month.Calls} calls · no limit set";
+        _usage.HasLimit ? $"of ${_usage.LimitUsd:0.00} at API prices this month · {_usage.Month.Calls} calls" : $"at API prices this month · {_usage.Month.Calls} calls · no limit set";
+
+    /// <summary>What the figure means for this login: no charge on a Claude plan, roughly the bill with an API key.</summary>
+    public string UsageNote =>
+        (_signInChecked && IsSignedIn
+            ? _onPlan
+                ? "Not a charge: Claude Code is signed in with a Claude plan, so these calls count against your plan's usage limits. "
+                : "Claude Code is signed in without a Claude plan (for example with an API key), so this is roughly what the calls cost you. "
+            : "On a Claude plan (Pro, Max) this isn't charged: the calls count against the plan's usage limits. ")
+        + "The figure is Claude Code's estimate at API prices. The app warns at the warning level and refuses to start calls at the limit. Demo debates never count.";
 
     public string ClaudeExecutable { get => _edit.ClaudeExecutable; set { _edit.ClaudeExecutable = value; OnPropertyChanged(); } }
     public string ClaudeExtraArgs { get => _edit.ClaudeExtraArgs; set { _edit.ClaudeExtraArgs = value; OnPropertyChanged(); } }
@@ -158,7 +169,7 @@ public sealed class SettingsViewModel : ObservableObject, IPage
 
         var folderChanged = !string.Equals(_edit.DataFolder.TrimEnd('\\'), _main.Council.Settings.DataFolder.TrimEnd('\\'), StringComparison.OrdinalIgnoreCase);
         if (_edit.Provider == ProviderKind.ClaudeCli && _main.Council.Settings.Provider == ProviderKind.Demo &&
-            !Dialogs.Confirm("Switch to the Claude Code CLI? From now on, debates and test runs use your Claude plan's credit for programmatic use."))
+            !Dialogs.Confirm("Switch to the Claude Code CLI? From now on, debates and test runs make real calls with your Claude Code login. On a Claude plan they count against the plan's usage limits."))
             return;
 
         _main.Council.UpdateSettings(_edit.Clone());
@@ -190,6 +201,9 @@ public sealed class SettingsViewModel : ObservableObject, IPage
         if (request != _signInRequest) return;
         IsSignedIn = result.SignedIn;
         SignInStatus = (result.SignedIn ? "✓ " : "✗ ") + result.Message;
+        _signInChecked = true;
+        _onPlan = result.OnPlan;
+        OnPropertyChanged(nameof(UsageNote));
     }
 
     private async Task SignIn()

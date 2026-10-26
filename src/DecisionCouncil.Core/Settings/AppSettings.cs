@@ -35,7 +35,7 @@ public sealed class AppSettings
     public string AnswerLanguage { get; set; } = "English";
     public bool Round2Default { get; set; } = true;
 
-    /// <summary>Monthly limit in USD as reported by the CLI (total_cost_usd). 0 means no limit.</summary>
+    /// <summary>Monthly limit in USD at API prices, as reported by the CLI (total_cost_usd). 0 means no limit.</summary>
     public decimal MonthlyLimitUsd { get; set; } = 0m;
     public int WarnAtPercent { get; set; } = 80;
 

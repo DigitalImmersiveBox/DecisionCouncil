@@ -119,7 +119,7 @@ public sealed class MainViewModel : ObservableObject
         var state = Council.Usage.Current();
         UsageText = IsDemo && state.Month.Calls == 0
             ? "no real calls yet"
-            : state.HasLimit ? $"${state.Month.CostUsd:0.00} of ${state.LimitUsd:0.00} · {state.Month.Calls} calls" : $"${state.Month.CostUsd:0.00} · {state.Month.Calls} calls";
+            : state.HasLimit ? $"≈${state.Month.CostUsd:0.00} of ${state.LimitUsd:0.00} API · {state.Month.Calls} calls" : $"≈${state.Month.CostUsd:0.00} at API prices · {state.Month.Calls} calls";
         UsageLevel = state.Level;
         HasLimit = state.HasLimit;
         UsagePercent = Math.Min(100, state.Percent);

@@ -252,7 +252,7 @@ public sealed class LiveDebateViewModel : ObservableObject, IPage
                     seat.State = col.State;
                 }
                 var tokens = r.OutputTokens is { } o ? $" · {o} tokens out" : "";
-                var cost = r.Simulated ? "" : r.CostUsd is { } c ? $" · ${c:0.0000}" : "";
+                var cost = r.Simulated ? "" : r.CostUsd is { } c ? $" · ≈${c:0.0000} API" : "";
                 col.Meta = $"{r.DurationMs / 1000.0:0.0} s{tokens}{cost}";
                 DoneCalls++;
                 break;

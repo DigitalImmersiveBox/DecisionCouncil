@@ -85,7 +85,7 @@ public static class Tour
             }
         };
         timer.Start();
-        Dialogs.Confirm("Switch to the Claude Code CLI? From now on, debates and test runs use your Claude plan's credit for programmatic use.");
+        Dialogs.Confirm("Switch to the Claude Code CLI? From now on, debates and test runs make real calls with your Claude Code login. On a Claude plan they count against the plan's usage limits.");
 
         window.Close();
     }

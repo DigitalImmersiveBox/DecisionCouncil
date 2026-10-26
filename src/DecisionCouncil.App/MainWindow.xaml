@@ -47,7 +47,8 @@
               <Run Text="PROVIDER" FontSize="11" FontWeight="SemiBold" Foreground="{StaticResource Text.Label}"/>
               <Run Text="{Binding ProviderText, Mode=OneWay}" FontSize="11.5" Foreground="{StaticResource Text.Secondary}"/>
             </TextBlock>
-            <TextBlock TextTrimming="CharacterEllipsis" Margin="0,3,0,0">
+            <TextBlock TextTrimming="CharacterEllipsis" Margin="0,3,0,0"
+                       ToolTip="This month's real calls, estimated at API prices as Claude Code reports them. Signed in with a Claude plan (Pro, Max), they aren't charged: they count against your plan's usage limits.">
               <Run Text="MONTH" FontSize="11" FontWeight="SemiBold" Foreground="{StaticResource Text.Label}"/>
               <Run Text="{Binding UsageText, Mode=OneWay}" FontSize="11.5" Foreground="{StaticResource Text.Secondary}"/>
             </TextBlock>

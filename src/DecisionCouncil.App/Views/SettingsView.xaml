@@ -155,7 +155,7 @@
           <DockPanel Margin="0,6,0,0">
             <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Center">
               <StackPanel Width="110" Margin="8,0,0,0">
-                <TextBlock Text="LIMIT (USD)" Style="{StaticResource Heading}" Margin="0,0,0,3"/>
+                <TextBlock Text="LIMIT (API USD)" Style="{StaticResource Heading}" Margin="0,0,0,3"/>
                 <TextBox Text="{Binding MonthlyLimitText, UpdateSourceTrigger=PropertyChanged}" ToolTip="Empty = no limit"/>
               </StackPanel>
               <StackPanel Width="80" Margin="8,0,0,0">
@@ -172,8 +172,7 @@
                            Visibility="{Binding HasLimit, Converter={StaticResource VisibleWhen}}"/>
             </StackPanel>
           </DockPanel>
-          <TextBlock Style="{StaticResource Hint}" Margin="0,8,0,0"
-                     Text="Compared with the cost the CLI reports. The app warns at the warning level and refuses to start calls at the limit. Demo debates never count."/>
+          <TextBlock Style="{StaticResource Hint}" Margin="0,8,0,0" TextWrapping="Wrap" Text="{Binding UsageNote}"/>
 
           <Border Style="{StaticResource Divider}"/>
 

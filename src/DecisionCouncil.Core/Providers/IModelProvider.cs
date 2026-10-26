@@ -20,8 +20,8 @@ public sealed record ModelResult(
 
 public sealed record ProviderCheck(bool Ok, string Message);
 
-/// <summary>Claude Code login state, from <c>claude auth status</c>.</summary>
-public sealed record ClaudeSignIn(bool SignedIn, string Message);
+/// <summary>Claude Code login state, from <c>claude auth status</c>. OnPlan: signed in with a Claude plan (Pro, Max), not an API key.</summary>
+public sealed record ClaudeSignIn(bool SignedIn, string Message, bool OnPlan = false);
 
 /// <summary>
 /// The only thing that knows how to reach a model. The engine and the screens talk to this interface,

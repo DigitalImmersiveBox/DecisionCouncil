@@ -98,7 +98,7 @@ public sealed class ResultViewModel : ObservableObject, IPage
         {
             var usage = _detail.Runs.All(r => r.Simulated)
                 ? "simulated, no credit used"
-                : $"{_detail.TotalTokens:N0} tokens · ${_detail.TotalCost:0.0000}";
+                : $"{_detail.TotalTokens:N0} tokens · ≈${_detail.TotalCost:0.0000} at API prices";
             return $"{_detail.StartedAt:d MMM yyyy, HH:mm} · {_detail.Provider} · {_detail.Runs.Count} calls · {usage}";
         }
     }

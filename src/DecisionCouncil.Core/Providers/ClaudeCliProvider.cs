@@ -92,11 +92,12 @@ public sealed class ClaudeCliProvider(ClaudeCliOptions options) : IModelProvider
                 if (!(root.TryGetProperty("loggedIn", out var li) && li.ValueKind == JsonValueKind.True))
                     return new ClaudeSignIn(false, "Not signed in.");
 
+                var method = Str("authMethod");
                 var text = new StringBuilder("Signed in");
                 if (Str("email") is { Length: > 0 } email) text.Append(" as ").Append(email);
-                if (Str("authMethod") is { Length: > 0 } method && method != "none") text.Append(" with ").Append(method);
+                if (method is { Length: > 0 } && method != "none") text.Append(" with ").Append(method);
                 if (Str("subscriptionType") is { Length: > 0 } plan) text.Append(" (").Append(char.ToUpperInvariant(plan[0])).Append(plan[1..]).Append(" plan)");
-                return new ClaudeSignIn(true, text.Append('.').ToString());
+                return new ClaudeSignIn(true, text.Append('.').ToString(), OnPlan: method == "claude.ai");
             }
             catch (JsonException)
             {
@@ -249,7 +250,7 @@ public sealed class ClaudeCliProvider(ClaudeCliOptions options) : IModelProvider
         if (m.Contains("not logged in") || m.Contains("/login") || m.Contains("authenticat") || m.Contains("invalid api key"))
             return new ProviderException(ProviderErrorKind.NotLoggedIn, "Claude Code is not logged in. Run `claude` once in a terminal and log in with your plan. (" + message + ")");
         if (m.Contains("credit") || m.Contains("usage limit") || m.Contains("limit reached") || m.Contains("out of extra usage"))
-            return new ProviderException(ProviderErrorKind.CreditExhausted, "Your plan's credit for programmatic use seems to be used up. The debate so far is saved. (" + message + ")");
+            return new ProviderException(ProviderErrorKind.CreditExhausted, "Your Claude plan's usage limit seems to be reached. The debate so far is saved. (" + message + ")");
         if (m.Contains("rate limit") || m.Contains("429") || m.Contains("overloaded") || m.Contains("529"))
             return new ProviderException(ProviderErrorKind.RateLimited, "Rate limited or overloaded: " + message);
         return new ProviderException(fallback, string.IsNullOrWhiteSpace(message) ? "Claude Code CLI returned no output." : message);

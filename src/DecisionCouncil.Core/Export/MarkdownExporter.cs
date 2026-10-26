@@ -50,7 +50,7 @@ public static class MarkdownExporter
         sb.AppendLine().AppendLine("---").AppendLine();
         sb.AppendLine(real.Count == 0
             ? $"{d.Runs.Count} calls, simulated (no credit used)."
-            : $"{d.Runs.Count} calls · {d.TotalTokens:N0} tokens · ${d.TotalCost:0.0000} reported by the CLI.");
+            : $"{d.Runs.Count} calls · {d.TotalTokens:N0} tokens · ≈${d.TotalCost:0.0000} at API prices, as estimated by Claude Code (not charged on a Claude plan).");
         return sb.ToString();
     }
 

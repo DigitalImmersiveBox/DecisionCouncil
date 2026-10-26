@@ -29,7 +29,7 @@
 - **Agents are files.** Every agent is a Markdown file with its mandate. Edit them in the app, switch them on or off, add your own, and test one on a sample idea.
 - **Your context.** `context.md` tells every agent who you are, what you have and what you won't do, so the answers fit your situation.
 - **A decision journal.** Record what you decided, set a revisit date, and later note what actually happened and which agents' warnings came true. Export any debate to Markdown.
-- **Usage limit.** Real calls record tokens and cost. Set a monthly limit: the app warns at a set percentage and refuses to start calls once it is reached.
+- **Usage limit.** Real calls record tokens and Claude Code's cost estimate at API prices. On a Claude plan (Pro, Max) that estimate isn't charged: the calls count against your plan's usage limits. Set a monthly limit on the estimate: the app warns at a set percentage and refuses to start calls once it is reached.
 - **Demo mode.** Try the whole flow with simulated answers, without using any credit.
 
 ## Install

@@ -19,9 +19,10 @@ public sealed record UsageState(UsageTotals Month, decimal LimitUsd, int WarnAtP
         : Percent >= WarnAtPercent ? UsageLevel.Warning
         : UsageLevel.Ok;
 
+    /// <summary>The CLI's total_cost_usd is an estimate at API prices; on a Claude plan it is not charged.</summary>
     public string Describe() => HasLimit
-        ? $"${Month.CostUsd:0.00} of ${LimitUsd:0.00} this month ({Percent:0}%), {Month.Calls} calls"
-        : $"${Month.CostUsd:0.00} this month, {Month.Calls} calls (no limit set)";
+        ? $"≈${Month.CostUsd:0.00} of ${LimitUsd:0.00} at API prices this month ({Percent:0}%), {Month.Calls} calls"
+        : $"≈${Month.CostUsd:0.00} at API prices this month, {Month.Calls} calls (no limit set)";
 }
 
 public sealed class UsageLimitReachedException(UsageState state)

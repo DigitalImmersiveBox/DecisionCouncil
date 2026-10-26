@@ -12,7 +12,7 @@
     <UseWPF>true</UseWPF>
     <AssemblyName>DecisionCouncil</AssemblyName>
     <RootNamespace>DecisionCouncil.App</RootNamespace>
-    <Version>1.0.0</Version>
+    <Version>1.0.1</Version>
     <Product>Decision Council</Product>
     <Company>Digital Immersive Box</Company>
     <!-- Source art and the script that builds it: design/icon/final -->

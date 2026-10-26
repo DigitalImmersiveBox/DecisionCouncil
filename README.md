@@ -89,7 +89,7 @@ src/
     Council.cs               wires it all together
   DecisionCouncil.App/       WPF screens (MVVM), updater
   DecisionCouncil.Cli/       command-line runner for the engine
-defaults/                    agents, shared prompts and context template, embedded in the app and seeded into the data folder on first run (agents added in a later version are offered once)
+defaults/                    agents, shared prompts and context template, embedded in the app and seeded into the data folder on first run (agents added in a later version are offered once; default files the user never edited are updated to the newest version)
 design/icon/                 app icon source and concepts
 ```
 

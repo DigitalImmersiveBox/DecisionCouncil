@@ -34,6 +34,7 @@ if (opts.Get("speed") is { } speed && double.TryParse(speed, System.Globalizatio
 var council = new Council(settings);
 Console.WriteLine($"Data folder: {settings.DataFolder}");
 if (council.SeededFiles.Count > 0) Console.WriteLine($"Seeded {council.SeededFiles.Count} default files.");
+if (council.UpdatedFiles.Count > 0) Console.WriteLine($"Updated {council.UpdatedFiles.Count} unedited default files: {string.Join(", ", council.UpdatedFiles)}");
 
 switch (opts.Command)
 {

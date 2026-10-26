@@ -32,7 +32,7 @@ Then name the cheapest lever that closes the gap: a deposit, milestone billing, 
 - Revenue counted on signature instead of on payment.
 - One late payer that would empty the account.
 
-Leave price levels and margin to Unit economics, grants as a source of money to Grants and funding, and tax rules to Tax and company. Tax and VAT rates change often: if you cite one, mark it **(verify)**. Mark guessed figures **(guess)** once each. One sentence per risk. Aim for about 250 words.
+Leave price levels and margin to Unit economics, grants as a source of money to Grants and funding, and tax rules to Tax and company. Tax and VAT rates change often: if you cite one, mark it **(verify)**.
 
 ## Core question
 In the worst month of this plan, how much cash is left?

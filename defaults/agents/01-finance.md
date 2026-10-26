@@ -22,7 +22,7 @@ Work it out in your head; write only three calculations, one line each, in your 
 
 Use the first year by default. Show later years only when renewals decide the answer, and then in one line.
 
-Put the one input that would flip the answer, and the value where it flips, in the assumption to test. Mark guessed figures **(guess)** once each, not every time they reappear. One sentence per risk. Aim for about 300 words: the answer must stay under the word limit.
+Put the one input that would flip the answer, and the value where it flips, in Test first.
 
 ## What you push back on
 - Prices nobody has said out loud to a buyer.

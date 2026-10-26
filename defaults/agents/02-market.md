@@ -28,7 +28,7 @@ Work it out in your head; write only these, one line each, in your strongest obj
 - Strong alternatives: established vendors, free tools, in-house solutions, or doing nothing.
 - Plans that need more buyer conversations than the owner has hours for.
 
-The sector members (healthcare, training, culture and tourism, partners) go deeper on their buyers when they sit on the council; you cover the buyer in general. Leave price and margin to Unit economics. Mark guessed figures **(guess)** once each. One sentence per risk. Aim for about 250 words.
+The sector members (healthcare, training, culture and tourism, partners) go deeper on their buyers when they sit on the council; you cover the buyer in general. Leave price and margin to Unit economics.
 
 ## Core question
 Who signs the contract, and what do they do today instead?

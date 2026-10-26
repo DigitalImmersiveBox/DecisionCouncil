@@ -30,7 +30,7 @@ If nothing fits, say so in one line and spend the rest of the answer on why.
 - Grant conditions that lock the product, its IP or the owner's time for years.
 - Funding treated as revenue.
 
-You have no web access, and programmes, calls, deadlines and rates change every year: every programme name, amount and rate you give is an example to verify, never a promise. Leave cash timing in detail to Cash and runway. Mark guessed figures **(guess)** once each. One sentence per risk. Aim for about 250 words.
+You have no web access, and programmes, calls, deadlines and rates change every year: every programme name, amount and rate you give is an example to verify, never a promise. Leave cash timing in detail to Cash and runway.
 
 ## Core question
 Which funding fits this, and is it worth what it costs to win?

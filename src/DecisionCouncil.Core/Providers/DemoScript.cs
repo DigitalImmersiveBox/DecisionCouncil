@@ -29,14 +29,11 @@ internal static class DemoScript
 
             **Strongest objection:** A yearly subscription only works if a firm trains enough operators each year to justify it. A mid-size Romanian contractor may certify 3 to 8 crane operators a year **(guess)**. At that volume they compare you per head with a training centre, not per year.
 
-            **Top 3 risks:**
+            **Risks:**
             1. Price anchored to your build cost and not to the customer's alternative. *Assumes* firms see VR as a substitute for paid seat time on a real crane.
             2. Hardware cost lands on you. If you ship headsets, 4 × Quest at ~€500 each **(guess)** plus replacements eats the first-year margin of a small customer.
-            3. Long sales cycles burn cash. Construction firms buy in Q1 budgets; a deal started in November may not pay until April.
 
-            **Assumption to test first:** That a firm would pay at least €4,000 a year. Test: send three safety managers a one-page offer with two price points and ask which they would sign. Two weeks, zero build cost.
-
-            **What would change my mind:** One signed letter of intent at ≥ €4k/year, or proof that VR hours count towards mandatory training hours.
+            **Test first:** That a firm would pay at least €4,000 a year. Test: send three safety managers a one-page offer with two price points and ask which they would sign. Two weeks, zero build cost. The verdict changes with one signed letter of intent at ≥ €4k/year, or proof that VR hours count towards mandatory training hours.
 
             **Confidence:** 3/5. The economics are clear to model, but I am guessing the customer's training volume.
             """,
@@ -45,14 +42,11 @@ internal static class DemoScript
 
             **Strongest objection:** The person who feels the pain (the safety manager) is rarely the person who signs. And contractors already outsource crane certification to authorised training centres. Your buyer may really be those centres, who need more practice hours without more crane time.
 
-            **Top 3 risks:**
+            **Risks:**
             1. No budget line. *Assumes* contractors have a training budget they control, not one owned by the main contractor or the client.
             2. "Nice demo, no purchase." VR impresses at trade fairs and then stalls in procurement.
-            3. Competitors from simulator vendors with certified hardware rigs, who already sell to the same centres.
 
-            **Assumption to test first:** That authorised crane training centres in Romania would rent VR stations per seat-hour. Test: call five centres this week and ask what a practice hour on a real crane costs them today.
-
-            **What would change my mind:** Two contractors saying they buy training directly and would pilot within the current budget year.
+            **Test first:** That authorised crane training centres in Romania would rent VR stations per seat-hour. Test: call five centres this week and ask what a practice hour on a real crane costs them today. The verdict changes with two contractors saying they buy training directly and would pilot within the current budget year.
 
             **Confidence:** 3/5. The channel insight is solid; how big the Romanian market is is my guess.
             """,
@@ -61,14 +55,11 @@ internal static class DemoScript
 
             **Strongest objection:** A demo scenario and a product that a training centre runs every day are two different things. The hard part is not the crane physics. It is trainee management, scoring that a safety auditor accepts, content updates, and headsets that a non-technical trainer can reset.
 
-            **Top 3 risks:**
+            **Risks:**
             1. Scoring credibility. *Assumes* an automatic score from VR telemetry is accepted as evidence of competence. If an inspector needs a human sign-off, you also need a trainer dashboard.
             2. Hardware fleet management: updates, battery wear, lost controllers. That is 2 to 4 hours a month per customer **(guess)**.
-            3. A 3x schedule overrun on "multi-scenario" content: load swings, wind, signalling and blind lifts are each a scenario to design and test.
 
-            **Assumption to test first:** That one trainer can run a 4-trainee session with no help from you. Test: give the current build to one centre for one afternoon and count the support calls.
-
-            **What would change my mind:** A centre that runs sessions alone for two weeks with fewer than two support calls.
+            **Test first:** That one trainer can run a 4-trainee session with no help from you. Test: give the current build to one centre for one afternoon and count the support calls. The verdict changes with a centre that runs sessions alone for two weeks with fewer than two support calls.
 
             **Confidence:** 4/5. I know where VR products like this usually overrun.
             """,
@@ -77,14 +68,11 @@ internal static class DemoScript
 
             **Strongest objection:** Subscriptions create an ongoing support load from the first customer. You are the single point of failure for build, sales and support. Every customer adds weekly obligations that collide with fixed-date client projects.
 
-            **Top 3 risks:**
+            **Risks:**
             1. Support load arrives before revenue does. *Assumes* the first customers are patient early adopters, which construction firms rarely are.
             2. You as single point of failure: illness or a client deadline means headsets sit unused, and the customer cancels at renewal.
-            3. On-site onboarding. Each new customer probably needs one in-person day **(guess)**, and travel across Romania adds up.
 
-            **Assumption to test first:** That you have 8 to 10 free hours a week for the next six months. Test: block them in your calendar for the next four weeks and see how many survive.
-
-            **What would change my mind:** A partner or trainer who can do onboarding and first-line support for a revenue share.
+            **Test first:** That you have 8 to 10 free hours a week for the next six months. Test: block them in your calendar for the next four weeks and see how many survive. The verdict changes with a partner or trainer who can do onboarding and first-line support for a revenue share.
 
             **Confidence:** 4/5. Capacity problems like this are predictable for a small studio.
             """,
@@ -93,14 +81,11 @@ internal static class DemoScript
 
             **Strongest objection:** If marketing says or implies "certified" or "replaces practical training", you take on liability for an accident after a trainee passed your module. Crane operator authorisation in Romania goes through ISCIR rules and authorised providers **(verify)**. VR can support that process but not replace it unless the regulator accepts it.
 
-            **Top 3 risks:**
+            **Risks:**
             1. Liability claims after an incident. *Assumes* the contract clearly limits the product to supplementary practice.
             2. GDPR: trainee performance scores are personal data and may be used in employment decisions. You need a DPA with each customer, and you are probably a processor.
-            3. IP: if the crane scenario was first built for a client, check who owns the code and the 3D assets before you resell them.
 
-            **Assumption to test first:** That you own every asset and line of code in the current crane build. Test: re-read the original client contract this week.
-
-            **What would change my mind:** Written confirmation from ISCIR or an authorised provider that VR hours may count towards practical training.
+            **Test first:** That you own every asset and line of code in the current crane build. Test: re-read the original client contract this week. The verdict changes with written confirmation from ISCIR or an authorised provider that VR hours may count towards practical training.
 
             **Confidence:** 3/5. These are the usual risks, but I have not seen your contracts.
             """,
@@ -109,14 +94,11 @@ internal static class DemoScript
 
             **Strongest objection:** It is 12 months from now and the product failed. The most likely story: two pilots started enthusiastically, the headsets were used for six weeks, then the trainer who championed it left or got busy. Usage dropped to zero and neither customer renewed. No one noticed early, because nothing measured usage.
 
-            **Top 3 risks:**
+            **Risks:**
             1. Pilots without success criteria. *Assumes* the customer and you agree up front on what "working" means.
             2. A single champion at each customer. When that person leaves, the subscription dies.
-            3. Building for a market of 30 to 50 possible buyers in Romania **(guess)** without an export plan, so even success stays small.
 
-            **Assumption to test first:** That pilot users will still train in VR in week 8 without reminders. Test: in the first pilot, log sessions per week and set a kill threshold before it starts.
-
-            **What would change my mind:** A pilot where weekly use holds steady after month two.
+            **Test first:** That pilot users will still train in VR in week 8 without reminders. Test: in the first pilot, log sessions per week and set a kill threshold before it starts. The verdict changes with a pilot where weekly use holds steady after month two.
 
             **Confidence:** 3/5. This failure pattern is common, but your customers may differ.
             """,
@@ -236,14 +218,11 @@ internal static class DemoScript
 
             **Strongest objection:** The idea describes value but not the price, the cost to deliver one unit, or how many units you need to sell to cover the time you put in. Until those three numbers exist, every other argument is a guess.
 
-            **Top 3 risks:**
+            **Risks:**
             1. Revenue estimate set from hope, not from a buyer. *Assumes* someone has said a price out loud.
             2. Hidden costs: support, hardware, travel and your own unpaid hours.
-            3. A cash gap between building and the first payment, often 3 to 6 months **(guess)**.
 
-            **Assumption to test first:** That a buyer accepts your target price. Test: put the price in front of three potential buyers within two weeks.
-
-            **What would change my mind:** A break-even under 12 months, based on a price someone has accepted.
+            **Test first:** That a buyer accepts your target price. Test: put the price in front of three potential buyers within two weeks. The verdict changes with a break-even under 12 months, based on a price someone has accepted.
 
             **Confidence:** 2/5. I have no numbers from you yet.
             """,
@@ -252,14 +231,11 @@ internal static class DemoScript
 
             **Strongest objection:** "Companies that need X" is not a customer. Who signs the contract, what job title, and what do they do today instead? The current alternative, even a spreadsheet or doing nothing, is your real competitor.
 
-            **Top 3 risks:**
+            **Risks:**
             1. Interest without purchase intent. *Assumes* positive feedback means people will pay.
             2. A strong free or "good enough" alternative already in place.
-            3. Timing: no trigger that makes the buyer act this quarter.
 
-            **Assumption to test first:** That a specific role has this problem now and a budget for it. Test: ten short conversations with that role, asking what they did the last time the problem happened.
-
-            **What would change my mind:** Three people who describe the problem unprompted and ask when they can buy.
+            **Test first:** That a specific role has this problem now and a budget for it. Test: ten short conversations with that role, asking what they did the last time the problem happened. The verdict changes with three people who describe the problem unprompted and ask when they can buy.
 
             **Confidence:** 3/5.
             """,
@@ -268,14 +244,11 @@ internal static class DemoScript
 
             **Strongest objection:** The plan treats the build as the easy part. The hardest part is usually the boring one: reliability, updates and the edge cases real users hit on day one. Expect it to take 2 to 3 times longer than planned **(guess)**.
 
-            **Top 3 risks:**
+            **Risks:**
             1. Underestimated integration work. *Assumes* all components behave as in the prototype.
             2. Maintenance load after launch, which competes with new work.
-            3. Hardware or platform limits that only show up at scale.
 
-            **Assumption to test first:** That the hardest technical piece works end to end. Test: a two-week spike that does only that.
-
-            **What would change my mind:** A working spike of the hardest part within the planned time.
+            **Test first:** That the hardest technical piece works end to end. Test: a two-week spike that does only that. The verdict changes with a working spike of the hardest part within the planned time.
 
             **Confidence:** 3/5.
             """,
@@ -284,14 +257,11 @@ internal static class DemoScript
 
             **Strongest objection:** Your week is already full. Something has to stop for this to start, and the idea does not say what. Without that, this project steals time from paying work and both suffer.
 
-            **Top 3 risks:**
+            **Risks:**
             1. You as the single point of failure. *Assumes* no one else can build, sell or support it.
             2. Overload next to current projects with fixed deadlines.
-            3. Delivery steps that need you in person.
 
-            **Assumption to test first:** That you can free a fixed number of hours a week. Test: block them for four weeks and track how many survive.
-
-            **What would change my mind:** A named task you stop doing, or a partner who takes part of the load.
+            **Test first:** That you can free a fixed number of hours a week. Test: block them for four weeks and track how many survive. The verdict changes with a named task you stop doing, or a partner who takes part of the load.
 
             **Confidence:** 4/5.
             """,
@@ -300,14 +270,11 @@ internal static class DemoScript
 
             **Strongest objection:** Check who owns the IP if any part was built for a client or with public funding. Selling something you do not fully own is the most expensive mistake to fix later.
 
-            **Top 3 risks:**
+            **Risks:**
             1. Unclear IP ownership. *Assumes* earlier contracts left you the rights.
             2. GDPR if you handle personal data, even just user names and usage logs.
-            3. Liability if customers rely on the product for safety-relevant or financial decisions.
 
-            **Assumption to test first:** That you own everything you plan to sell. Test: re-read the relevant contracts this week.
-
-            **What would change my mind:** Contracts that clearly leave you the rights, and a standard DPA template ready.
+            **Test first:** That you own everything you plan to sell. Test: re-read the relevant contracts this week. The verdict changes with contracts that clearly leave you the rights, and a standard DPA template ready.
 
             **Confidence:** 3/5. I have not seen your contracts.
             """,
@@ -316,14 +283,11 @@ internal static class DemoScript
 
             **Strongest objection:** It is 12 months later and this failed. The most likely reason: it never got a clear yes or no. It took a few hours a week, showed some promise, and drifted while other work took priority. No one set a date to decide.
 
-            **Top 3 risks:**
+            **Risks:**
             1. No success metric. *Assumes* you will know when it works.
             2. Early enthusiasm from friendly contacts mistaken for demand.
-            3. A slow fade instead of a clear stop.
 
-            **Assumption to test first:** That you can define success in one number and one date. Write it down before starting.
-
-            **What would change my mind:** A written kill criterion and a review date.
+            **Test first:** That you can define success in one number and one date. Write it down before starting. The verdict changes with a written kill criterion and a review date.
 
             **Confidence:** 3/5.
             """,
@@ -432,14 +396,11 @@ internal static class DemoScript
 
         **Strongest objection:** The demo provider has no canned text for this agent. Switch to the Claude Code CLI provider in Settings to get a real answer that follows this agent's file.
 
-        **Top 3 risks:**
+        **Risks:**
         1. Simulated risk one. *Assumes* nothing.
         2. Simulated risk two.
-        3. Simulated risk three.
 
-        **Assumption to test first:** That the agent file reads well. Test: use "Test run" on the Agents screen with the real provider.
-
-        **What would change my mind:** A real model answer.
+        **Test first:** That the agent file reads well. Test: use "Test run" on the Agents screen with the real provider. The verdict changes with a real model answer.
 
         **Confidence:** 1/5. This is a placeholder.
         """;

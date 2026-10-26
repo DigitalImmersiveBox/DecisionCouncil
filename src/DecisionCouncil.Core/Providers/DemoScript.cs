@@ -107,9 +107,9 @@ internal static class DemoScript
     private static readonly Dictionary<string, string> SampleRound2 = new()
     {
         ["finance"] = """
-            **I disagree with:** Technical / VR, on "the prototype is a head start". The figures say otherwise: if the product work is the trainee management and scoring, then most of the cost is still ahead, and my break-even moves out by at least two quarters.
+            **I disagree with:** XR engineering, on "the prototype is a head start". The figures say otherwise: if the product work is the trainee management and scoring, then most of the cost is still ahead, and my break-even moves out by at least two quarters.
 
-            **Reinforced by:** Market and sales. Selling to training centres per seat-hour turns my volume problem into a utilisation question, which is easier to price.
+            **Reinforced by:** Buyer and demand. Selling to training centres per seat-hour turns my volume problem into a utilisation question, which is easier to price.
 
             **Changed my mind:** Yes, partly. A per-seat-hour model for centres removes the hardware risk from the contractor side, so I move from "Not yet" towards "Go with changes" for the centre channel only.
 
@@ -118,20 +118,20 @@ internal static class DemoScript
             **Updated confidence:** 3/5. The model is better, but I still have no real price from a centre.
             """,
         ["market"] = """
-            **I disagree with:** Finance, on testing price with contractors' safety managers. If they are not the buyer, their answer to a price test is noise. Test price with training centres instead.
+            **I disagree with:** Unit economics, on testing price with contractors' safety managers. If they are not the buyer, their answer to a price test is noise. Test price with training centres instead.
 
             **Reinforced by:** Pre-mortem. The single-champion risk is exactly why the contractor channel is weak, while a centre has a business reason to keep using the stations.
 
-            **Changed my mind:** Nothing changed my mind about the channel. Legal's point makes me drop any "certification" wording from the pitch.
+            **Changed my mind:** Nothing changed my mind about the channel. Contracts and IP's point makes me drop any "certification" wording from the pitch.
 
             **Updated verdict:** Go with changes.
 
             **Updated confidence:** 3/5.
             """,
         ["technical"] = """
-            **I disagree with:** Operations, on "support load arrives before revenue". That is only true if you ship your own headsets. With a centre channel and centre-owned hardware, support is mostly content and software, and that is remote work.
+            **I disagree with:** Capacity and focus, on "support load arrives before revenue". That is only true if you ship your own headsets. With a centre channel and centre-owned hardware, support is mostly content and software, and that is remote work.
 
-            **Reinforced by:** Legal. A human sign-off requirement means a trainer dashboard, which confirms my scoring risk is real scope, not polish.
+            **Reinforced by:** Contracts and IP. A human sign-off requirement means a trainer dashboard, which confirms my scoring risk is real scope, not polish.
 
             **Changed my mind:** I now think the first version should drop automatic scoring entirely and log sessions for a human trainer. That cuts the build by about a third **(guess)**.
 
@@ -140,7 +140,7 @@ internal static class DemoScript
             **Updated confidence:** 4/5.
             """,
         ["operations"] = """
-            **I disagree with:** Technical / VR, on support being "mostly remote". Training centres will still call when a headset does not start at 8:00 with eight trainees waiting. Remote support needs someone answering the phone at 8:00.
+            **I disagree with:** XR engineering, on support being "mostly remote". Training centres will still call when a headset does not start at 8:00 with eight trainees waiting. Remote support needs someone answering the phone at 8:00.
 
             **Reinforced by:** Pre-mortem. Fading usage is also a capacity signal. If no one has time to check usage weekly, no one will notice the fade.
 
@@ -151,9 +151,9 @@ internal static class DemoScript
             **Updated confidence:** 4/5.
             """,
         ["legal"] = """
-            **I disagree with:** Market and sales, who treat dropping "certification" from the pitch as enough. The contract and the in-app wording must also say "supplementary practice". A centre may market it to trainees as more than that, so you need a clause on how your product may be described.
+            **I disagree with:** Buyer and demand, who treat dropping "certification" from the pitch as enough. The contract and the in-app wording must also say "supplementary practice". A centre may market it to trainees as more than that, so you need a clause on how your product may be described.
 
-            **Reinforced by:** Technical / VR, on logging sessions for a human trainer. It makes clear that a person, not the software, judges competence, which lowers liability.
+            **Reinforced by:** XR engineering, on logging sessions for a human trainer. It makes clear that a person, not the software, judges competence, which lowers liability.
 
             **Changed my mind:** Selling to centres instead of contractors lowers my GDPR exposure, because the centre is already a controller of trainee data. Confidence goes up.
 
@@ -162,9 +162,9 @@ internal static class DemoScript
             **Updated confidence:** 4/5.
             """,
         ["premortem"] = """
-            **I disagree with:** Finance, whose updated plan still has no kill criterion. "Go with changes" without a date and a usage number is how slow fades start.
+            **I disagree with:** Unit economics, whose updated plan still has no kill criterion. "Go with changes" without a date and a usage number is how slow fades start.
 
-            **Reinforced by:** Operations. If no one owns the weekly usage check, the failure story I described plays out exactly.
+            **Reinforced by:** Capacity and focus. If no one owns the weekly usage check, the failure story I described plays out exactly.
 
             **Changed my mind:** The centre channel makes the single-champion risk smaller, because a centre's business depends on the stations being used. But it does not remove it.
 
@@ -176,19 +176,19 @@ internal static class DemoScript
 
     private const string SampleSynthesisText = """
         ## Where the council agrees
-        - Do not sell or describe it as **certification**. All members accept "supplementary practice" as the safe position (Legal, Market, Technical).
-        - The current crane build is a demo, not a product. Trainee management, session logging and on-site reliability are still to be built (Technical, Finance, Operations).
-        - A pilot needs **success criteria and a kill threshold before it starts** (Pre-mortem, raised again by Finance and Operations in round 2).
+        - Do not sell or describe it as **certification**. All members accept "supplementary practice" as the safe position (Contracts and IP, Buyer and demand, XR engineering).
+        - The current crane build is a demo, not a product. Trainee management, session logging and on-site reliability are still to be built (XR engineering, Unit economics, Capacity and focus).
+        - A pilot needs **success criteria and a kill threshold before it starts** (Pre-mortem, raised again by Unit economics and Capacity and focus in round 2).
 
         ## Where the council splits
-        - **Who is the buyer?** Market and Legal, and now Finance: authorised training centres paying per seat-hour. Operations is not convinced either channel is affordable for you to support. What would settle it: five calls to centres about what a practice hour costs them today.
-        - **How heavy is support?** Technical: mostly remote if the centres own the hardware. Operations: someone still has to answer at 8:00 when a headset fails. What would settle it: count support calls in a one-afternoon trial.
-        - **Go now or wait?** Four members moved to *Go with changes*. Operations stays at *Not yet* because no one has said what you stop doing.
+        - **Who is the buyer?** Buyer and demand and Contracts and IP, and now Unit economics: authorised training centres paying per seat-hour. Capacity and focus is not convinced either channel is affordable for you to support. What would settle it: five calls to centres about what a practice hour costs them today.
+        - **How heavy is support?** XR engineering: mostly remote if the centres own the hardware. Capacity and focus: someone still has to answer at 8:00 when a headset fails. What would settle it: count support calls in a one-afternoon trial.
+        - **Go now or wait?** Four members moved to *Go with changes*. Capacity and focus stays at *Not yet* because no one has said what you stop doing.
 
         ## Assumptions to test first
-        1. **Centres would pay per seat-hour at a price that covers support.** Five phone calls this week (Market, Finance).
-        2. **You own all code and 3D assets in the crane build.** Re-read the original client contract (Legal).
-        3. **A trainer can run a session alone.** One-afternoon trial at one centre, counting support calls (Technical, Operations).
+        1. **Centres would pay per seat-hour at a price that covers support.** Five phone calls this week (Buyer and demand, Unit economics).
+        2. **You own all code and 3D assets in the crane build.** Re-read the original client contract (Contracts and IP).
+        3. **A trainer can run a session alone.** One-afternoon trial at one centre, counting support calls (XR engineering, Capacity and focus).
         4. **Usage holds after week 8.** Log weekly sessions in the pilot with a kill threshold agreed up front (Pre-mortem).
 
         ## Questions only you can answer
@@ -201,10 +201,10 @@ internal static class DemoScript
         - No one asked what trainees think. A short session with five trainees would show whether VR practice feels useful or like a game.
 
         ## Where positions moved in round 2
-        - **Finance** moved from *Not yet* to *Go with changes* for the training-centre channel.
-        - **Technical** proposed dropping automatic scoring in version 1 in favour of logs a human trainer signs off.
-        - **Legal** raised confidence, since centres are already controllers of trainee data.
-        - **Operations** did not move.
+        - **Unit economics** moved from *Not yet* to *Go with changes* for the training-centre channel.
+        - **XR engineering** proposed dropping automatic scoring in version 1 in favour of logs a human trainer signs off.
+        - **Contracts and IP** raised confidence, since centres are already controllers of trainee data.
+        - **Capacity and focus** did not move.
         """;
 
     private static readonly Dictionary<string, string> SampleSynthesis = new() { ["synthesizer"] = SampleSynthesisText };
@@ -296,9 +296,9 @@ internal static class DemoScript
     private static readonly Dictionary<string, string> GenericRound2 = new()
     {
         ["finance"] = """
-            **I disagree with:** Technical / VR. "Build the smallest version" still needs a budget cap, otherwise the spike becomes the product.
+            **I disagree with:** XR engineering. "Build the smallest version" still needs a budget cap, otherwise the spike becomes the product.
 
-            **Reinforced by:** Market and sales. Without a named buyer there is no price, and without a price there is no break-even.
+            **Reinforced by:** Buyer and demand. Without a named buyer there is no price, and without a price there is no break-even.
 
             **Changed my mind:** Nothing changed my mind. I still need a price someone has accepted.
 
@@ -307,7 +307,7 @@ internal static class DemoScript
             **Updated confidence:** 2/5.
             """,
         ["market"] = """
-            **I disagree with:** Technical / VR, on starting with a technical spike. Talk to buyers first; the spike might test the wrong thing.
+            **I disagree with:** XR engineering, on starting with a technical spike. Talk to buyers first; the spike might test the wrong thing.
 
             **Reinforced by:** Pre-mortem. Friendly enthusiasm mistaken for demand is the same risk I raised.
 
@@ -318,18 +318,18 @@ internal static class DemoScript
             **Updated confidence:** 3/5.
             """,
         ["technical"] = """
-            **I disagree with:** Market and sales. Some technical risks kill the idea regardless of demand, so a short spike in parallel with buyer calls is cheap insurance.
+            **I disagree with:** Buyer and demand. Some technical risks kill the idea regardless of demand, so a short spike in parallel with buyer calls is cheap insurance.
 
-            **Reinforced by:** Operations. Maintenance load is also a capacity problem.
+            **Reinforced by:** Capacity and focus. Maintenance load is also a capacity problem.
 
-            **Changed my mind:** I accept Finance's point: the spike gets a fixed budget of hours.
+            **Changed my mind:** I accept Unit economics' point: the spike gets a fixed budget of hours.
 
             **Updated verdict:** Go with changes.
 
             **Updated confidence:** 3/5.
             """,
         ["operations"] = """
-            **I disagree with:** Technical / VR. Running a spike and buyer calls in parallel doubles the load on one person.
+            **I disagree with:** XR engineering. Running a spike and buyer calls in parallel doubles the load on one person.
 
             **Reinforced by:** Pre-mortem. A drifting project is usually an overloaded one.
 
@@ -340,9 +340,9 @@ internal static class DemoScript
             **Updated confidence:** 4/5.
             """,
         ["legal"] = """
-            **I disagree with:** No strong disagreement. But Market's buyer interviews must not promise features or terms you cannot deliver.
+            **I disagree with:** No strong disagreement. But Buyer and demand's buyer interviews must not promise features or terms you cannot deliver.
 
-            **Reinforced by:** Finance. Liability limits need to be priced in.
+            **Reinforced by:** Unit economics. Liability limits need to be priced in.
 
             **Changed my mind:** Nothing changed my mind.
 
@@ -351,9 +351,9 @@ internal static class DemoScript
             **Updated confidence:** 3/5.
             """,
         ["premortem"] = """
-            **I disagree with:** Technical / VR. A spike without a kill criterion is the first step of the slow fade.
+            **I disagree with:** XR engineering. A spike without a kill criterion is the first step of the slow fade.
 
-            **Reinforced by:** Operations and Finance. Both point at missing limits: time and money.
+            **Reinforced by:** Capacity and focus and Unit economics. Both point at missing limits: time and money.
 
             **Changed my mind:** Nothing changed my mind.
 
@@ -365,18 +365,18 @@ internal static class DemoScript
 
     private const string GenericSynthesisText = """
         ## Where the council agrees
-        - The idea is missing three numbers: **price, cost to deliver, and hours per week you can give it** (Finance, Operations).
-        - A **kill criterion and a review date** are needed before any work starts (Pre-mortem, Finance).
+        - The idea is missing three numbers: **price, cost to deliver, and hours per week you can give it** (Unit economics, Capacity and focus).
+        - A **kill criterion and a review date** are needed before any work starts (Pre-mortem, Unit economics).
 
         ## Where the council splits
-        - **Talk to buyers first, or build a spike first?** Market: buyers first, a spike may test the wrong thing. Technical: a short parallel spike is cheap insurance. Operations: doing both at once overloads you. What would settle it: whether the hardest technical part can actually fail.
-        - **Overall readiness:** Technical and Legal say *Go with changes*. Finance, Market, Operations and Pre-mortem say *Not yet*.
+        - **Talk to buyers first, or build a spike first?** Buyer and demand: buyers first, a spike may test the wrong thing. XR engineering: a short parallel spike is cheap insurance. Capacity and focus: doing both at once overloads you. What would settle it: whether the hardest technical part can actually fail.
+        - **Overall readiness:** XR engineering and Contracts and IP say *Go with changes*. Unit economics, Buyer and demand, Capacity and focus and Pre-mortem say *Not yet*.
 
         ## Assumptions to test first
-        1. **A named buyer accepts your price.** Ten short conversations (Market, Finance).
-        2. **You can free fixed hours each week.** Block them for four weeks (Operations).
-        3. **The hardest technical part works.** A spike with a fixed hour budget (Technical).
-        4. **You own the IP.** Re-read existing contracts (Legal).
+        1. **A named buyer accepts your price.** Ten short conversations (Buyer and demand, Unit economics).
+        2. **You can free fixed hours each week.** Block them for four weeks (Capacity and focus).
+        3. **The hardest technical part works.** A spike with a fixed hour budget (XR engineering).
+        4. **You own the IP.** Re-read existing contracts (Contracts and IP).
 
         ## Questions only you can answer
         - What will you stop doing to make room?
@@ -386,7 +386,7 @@ internal static class DemoScript
         - No member considered partners or channels that could sell this for you.
 
         ## Where positions moved in round 2
-        - **Technical** accepted a fixed hour budget for the spike. No one else moved.
+        - **XR engineering** accepted a fixed hour budget for the spike. No one else moved.
         """;
 
     private static readonly Dictionary<string, string> GenericSynthesis = new() { ["synthesizer"] = GenericSynthesisText };

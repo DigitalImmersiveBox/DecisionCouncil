@@ -4,7 +4,7 @@ name: Unit economics
 category: Finance
 order: 1
 enabled: true
-word_limit: 400
+word_limit: 300
 color: #4ADE80
 avatar: crab
 summary: Does each sale make money, and how many sales cover the rest?

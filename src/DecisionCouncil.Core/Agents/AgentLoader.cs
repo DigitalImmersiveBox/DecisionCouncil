@@ -35,13 +35,19 @@ public static partial class AgentLoader
             foreach (var dup in g.Skip(1))
                 errors?.Add($"{Path.GetFileName(dup.FilePath)}: id '{dup.Id}' is already used by {Path.GetFileName(g.First().FilePath)}; skipped.");
         }
-        return unique.OrderBy(a => a.Order).ThenBy(a => a.Name).ToList();
+        return unique
+            .OrderBy(a => AgentCategories.Rank(a.Category))
+            .ThenBy(a => a.Category, StringComparer.OrdinalIgnoreCase)
+            .ThenBy(a => a.Order)
+            .ThenBy(a => a.Name)
+            .ToList();
     }
 
     public static AgentDefinition Parse(string text, string filePath)
     {
         var agent = new AgentDefinition { FilePath = filePath };
         var (front, body) = SplitFrontMatter(text);
+        var category = "";
 
         foreach (var (key, value) in front)
         {
@@ -49,6 +55,7 @@ public static partial class AgentLoader
             {
                 case "id": agent.Id = value; break;
                 case "name": agent.Name = value; break;
+                case "category": category = value; break;
                 case "order": if (int.TryParse(value, out var o)) agent.Order = o; break;
                 case "enabled": agent.Enabled = !value.Equals("false", StringComparison.OrdinalIgnoreCase); break;
                 case "word_limit": if (int.TryParse(value, out var w) && w > 0) agent.WordLimit = w; break;
@@ -66,6 +73,7 @@ public static partial class AgentLoader
         if (string.IsNullOrWhiteSpace(body))
             throw new FormatException("the file has no instructions after the front matter.");
 
+        agent.Category = AgentCategories.Resolve(category, agent.Id);
         agent.Body = body.Trim();
         return agent;
     }
@@ -97,6 +105,7 @@ public static partial class AgentLoader
         ---
         id: {id}
         name: {name}
+        category: {AgentCategories.Other}
         order: 100
         enabled: true
         word_limit: 250

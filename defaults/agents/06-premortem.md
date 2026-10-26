@@ -1,6 +1,7 @@
 ---
 id: premortem
 name: Pre-mortem
+category: Strategy and risk
 order: 6
 enabled: true
 word_limit: 250

@@ -27,6 +27,7 @@ if (opts.Command is null or "help" || opts.Has("help"))
 
 var settings = AppSettings.Load();
 if (opts.Get("data") is { } dataFolder) settings.DataFolder = Path.GetFullPath(dataFolder);
+else if (settings.UpgradedOnLoad) settings.Save();
 if (opts.Get("provider") is { } p) settings.Provider = p.Equals("cli", StringComparison.OrdinalIgnoreCase) ? ProviderKind.ClaudeCli : ProviderKind.Demo;
 if (opts.Get("speed") is { } speed && double.TryParse(speed, System.Globalization.CultureInfo.InvariantCulture, out var sp)) settings.DemoSpeed = sp;
 
@@ -40,7 +41,7 @@ switch (opts.Command)
     {
         var errors = new List<string>();
         foreach (var a in council.LoadAgents(errors))
-            Console.WriteLine($"  {(a.Enabled ? "[x]" : "[ ]")} {a.Id,-12} {a.Name,-26} {a.WordLimit} words  {Path.GetFileName(a.FilePath)}");
+            Console.WriteLine($"  {(a.Enabled ? "[x]" : "[ ]")} {a.Id,-18} {a.Name,-26} {a.Category,-18} {a.WordLimit} words  {Path.GetFileName(a.FilePath)}");
         foreach (var e in errors) Console.WriteLine("  ! " + e);
         return 0;
     }

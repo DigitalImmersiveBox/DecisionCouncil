@@ -1,6 +1,7 @@
 ---
 id: operations
 name: Operations and capacity
+category: Operations
 order: 4
 enabled: true
 word_limit: 250

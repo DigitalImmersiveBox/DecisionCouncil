@@ -1,4 +1,6 @@
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Windows.Data;
 using System.Windows.Input;
 using DecisionCouncil.App.Infrastructure;
 using DecisionCouncil.Core;
@@ -15,6 +17,7 @@ public sealed class AgentChoice(AgentDefinition agent, bool selected, Action cha
 
     public AgentDefinition Agent { get; } = agent;
     public string Name => Agent.Name;
+    public string Category => Agent.Category;
     public string Summary => Agent.Summary;
     public string CoreQuestion => Agent.CoreQuestion;
     public string Color => Agent.Color;
@@ -56,10 +59,13 @@ public sealed class NewIdeaViewModel : ObservableObject, IPage
         LoadSampleCommand = new RelayCommand(LoadSample);
         ClearCommand = new RelayCommand(() => { Title = ""; IdeaText = ""; ExtraContext = ""; });
         EditContextCommand = new RelayCommand(() => _main.GoTo("context"));
+        AgentsView = CollectionViewSource.GetDefaultView(Agents);
+        AgentsView.GroupDescriptions.Add(new PropertyGroupDescription(nameof(AgentChoice.Category)));
         ReloadAgents();
     }
 
     public ObservableCollection<AgentChoice> Agents { get; } = [];
+    public ICollectionView AgentsView { get; }
     public List<AgentPreset> Presets => _main.Council.Settings.Presets;
 
     public string Title { get => _title; set => Set(ref _title, value); }
@@ -109,7 +115,13 @@ public sealed class NewIdeaViewModel : ObservableObject, IPage
         var loaded = _main.Council.LoadAgents(errors).Where(a => a.Enabled).ToList();
         Agents.Clear();
         foreach (var a in loaded)
-            Agents.Add(new AgentChoice(a, previouslySelected?.Contains(a.Id) ?? true, () => OnPropertyChanged(nameof(CallSummary))));
+            Agents.Add(new AgentChoice(a, previouslySelected?.Contains(a.Id) ?? false, () => OnPropertyChanged(nameof(CallSummary))));
+        // The first preset is the starting selection, so a large council does not run in full by default.
+        if (previouslySelected is null)
+        {
+            if (Presets.FirstOrDefault() is { } first) ApplyPreset(first);
+            else foreach (var a in Agents) a.IsSelected = true;
+        }
         AgentErrors = errors.Count == 0 ? "" : "Some agent files could not be read: " + string.Join("; ", errors);
         OnPropertyChanged(nameof(Presets));
     }

@@ -1,6 +1,7 @@
 ---
 id: market
 name: Market and sales
+category: Market
 order: 2
 enabled: true
 word_limit: 250

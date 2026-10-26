@@ -12,7 +12,7 @@
         <StackPanel>
           <TextBlock Text="Agents" Style="{StaticResource Title}"/>
           <TextBlock Style="{StaticResource Subtitle}"
-                     Text="Each agent is one Markdown file: the front matter sets its name, colour and word limit, the body is its instructions. Shared prompts apply to every agent."/>
+                     Text="Each agent is one Markdown file: the front matter sets its name, category, colour and word limit, the body is its instructions. Shared prompts apply to every agent."/>
         </StackPanel>
       </DockPanel>
       <Border Style="{StaticResource Callout}" BorderBrush="{StaticResource Status.NeedsYou}" Margin="0,12,0,0"

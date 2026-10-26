@@ -1,6 +1,7 @@
 ---
 id: technical
 name: Technical / VR
+category: Technical
 order: 3
 enabled: true
 word_limit: 250

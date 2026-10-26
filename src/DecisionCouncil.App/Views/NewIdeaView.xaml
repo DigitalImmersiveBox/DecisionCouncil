@@ -66,26 +66,36 @@
       <!-- The council -->
       <Border Grid.Column="2" Style="{StaticResource Card}" Padding="16,14">
         <DockPanel>
-          <DockPanel DockPanel.Dock="Top" Margin="0,0,0,6">
-            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Margin="0,-3,-4,0">
-              <ItemsControl ItemsSource="{Binding Presets}" Focusable="False">
-                <ItemsControl.ItemsPanel>
-                  <ItemsPanelTemplate><StackPanel Orientation="Horizontal"/></ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                  <DataTemplate>
-                    <Button Content="{Binding Name}" Style="{StaticResource ChipToggle}"
-                            Command="{Binding DataContext.ApplyPresetCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                            CommandParameter="{Binding}"/>
-                  </DataTemplate>
-                </ItemsControl.ItemTemplate>
-              </ItemsControl>
-              <Button Content="None" Style="{StaticResource ChipToggle}" Command="{Binding SelectNoneCommand}"/>
-            </StackPanel>
-            <TextBlock Text="COUNCIL" Style="{StaticResource Heading}" Margin="0"/>
-          </DockPanel>
+          <StackPanel DockPanel.Dock="Top" Margin="0,0,0,6">
+            <DockPanel>
+              <Button DockPanel.Dock="Right" Content="None" Style="{StaticResource ChipToggle}" Command="{Binding SelectNoneCommand}"
+                      Margin="0,-3,-4,0"/>
+              <TextBlock Text="COUNCIL" Style="{StaticResource Heading}" Margin="0"/>
+            </DockPanel>
+            <ItemsControl ItemsSource="{Binding Presets}" Focusable="False" Margin="-4,4,-4,0">
+              <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate><WrapPanel/></ItemsPanelTemplate>
+              </ItemsControl.ItemsPanel>
+              <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                  <Button Content="{Binding Name}" Style="{StaticResource ChipToggle}"
+                          Command="{Binding DataContext.ApplyPresetCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                          CommandParameter="{Binding}"/>
+                </DataTemplate>
+              </ItemsControl.ItemTemplate>
+            </ItemsControl>
+          </StackPanel>
           <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="-6,0,-6,0">
-            <ItemsControl ItemsSource="{Binding Agents}" Focusable="False">
+            <ItemsControl ItemsSource="{Binding AgentsView}" Focusable="False">
+              <ItemsControl.GroupStyle>
+                <GroupStyle>
+                  <GroupStyle.HeaderTemplate>
+                    <DataTemplate>
+                      <TextBlock Text="{Binding Name, Converter={x:Static controls:UpperCase.Instance}}" Style="{StaticResource Heading}" Margin="8,10,0,2"/>
+                    </DataTemplate>
+                  </GroupStyle.HeaderTemplate>
+                </GroupStyle>
+              </ItemsControl.GroupStyle>
               <ItemsControl.ItemTemplate>
                 <DataTemplate>
                   <Border x:Name="Row" Background="Transparent" CornerRadius="6" Padding="8,8">

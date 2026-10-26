@@ -1,6 +1,7 @@
 ---
 id: legal
 name: Legal and compliance
+category: Legal
 order: 5
 enabled: true
 word_limit: 250

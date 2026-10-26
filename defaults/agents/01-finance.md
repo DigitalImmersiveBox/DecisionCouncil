@@ -1,6 +1,7 @@
 ---
 id: finance
 name: Finance
+category: Finance
 order: 1
 enabled: true
 word_limit: 250

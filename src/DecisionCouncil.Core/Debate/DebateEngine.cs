@@ -121,8 +121,8 @@ public sealed class DebateEngine(IModelProvider provider, CouncilStore store, Pr
     public async Task<AgentRun> TestAgentAsync(AgentDefinition agent, Idea idea, CancellationToken ct)
     {
         var (system, user) = prompts.Round1(agent, idea);
-        // Debate id 0: a test run belongs to no debate, but a real one is still saved so it counts towards usage.
-        var context = new RunContext(0, idea, null, ct, 1);
+        // No debate id: a test run belongs to no debate, but a real one is still saved so it counts towards usage.
+        var context = new RunContext(null, idea, null, ct, 1);
         var run = await CallAsync(context, agent.Id, agent.Name, DebateRound.Round1, system, user, options.AgentModel);
         context.ThrowIfStopped();
         return run ?? throw new OperationCanceledException(ct);
@@ -209,7 +209,18 @@ public sealed class DebateEngine(IModelProvider provider, CouncilStore store, Pr
         record.DurationMs = (long)sw.Elapsed.TotalMilliseconds;
         if (record.Status != RunStatus.Done) ctx.AnyFailed = true;
         // Simulated test runs are not worth keeping; real ones are, because they used credit.
-        if (ctx.DebateId != 0 || !record.Simulated) store.SaveRun(record);
+        // The call is already paid for, so a failed save must never cost the caller the answer.
+        if (ctx.DebateId is not null || !record.Simulated)
+        {
+            try
+            {
+                store.SaveRun(record);
+            }
+            catch (Exception ex)
+            {
+                record.Error ??= "The answer could not be saved: " + ex.Message;
+            }
+        }
         ctx.Progress?.Report(new CallFinished(record));
         return record;
     }
@@ -219,11 +230,11 @@ public sealed class DebateEngine(IModelProvider provider, CouncilStore store, Pr
         public DebateStatus Status { get; } = status;
     }
 
-    private sealed class RunContext(long debateId, Idea idea, IProgress<DebateEvent>? progress, CancellationToken userToken, int concurrency)
+    private sealed class RunContext(long? debateId, Idea idea, IProgress<DebateEvent>? progress, CancellationToken userToken, int concurrency)
     {
         private readonly CancellationTokenSource _stop = CancellationTokenSource.CreateLinkedTokenSource(userToken);
 
-        public long DebateId { get; } = debateId;
+        public long? DebateId { get; } = debateId;
         public Idea Idea { get; } = idea;
         public IProgress<DebateEvent>? Progress { get; } = progress;
         public SemaphoreSlim Gate { get; } = new(concurrency);

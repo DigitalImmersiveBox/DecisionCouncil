@@ -47,7 +47,7 @@ public sealed class CouncilStore
             );
             CREATE TABLE IF NOT EXISTS agent_runs (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
-                debate_id INTEGER NOT NULL REFERENCES debates(id),
+                debate_id INTEGER REFERENCES debates(id),
                 agent_id TEXT NOT NULL,
                 agent_name TEXT NOT NULL,
                 round INTEGER NOT NULL,
@@ -78,6 +78,60 @@ public sealed class CouncilStore
                 outcome_logged_at TEXT
             );
             """);
+        AllowRunsWithoutDebate();
+    }
+
+    /// <summary>
+    /// Databases from 1.0.x declared agent_runs.debate_id NOT NULL, so a test run (no debate) could not be saved.
+    /// SQLite cannot drop a NOT NULL constraint in place, so the table is rebuilt once with the same columns.
+    /// </summary>
+    private void AllowRunsWithoutDebate()
+    {
+        lock (_gate)
+        {
+            using var c = Open();
+            using (var info = c.CreateCommand())
+            {
+                info.CommandText = "SELECT \"notnull\" FROM pragma_table_info('agent_runs') WHERE name = 'debate_id'";
+                if (Convert.ToInt64(info.ExecuteScalar(), CultureInfo.InvariantCulture) == 0) return;
+            }
+
+            using var tx = c.BeginTransaction();
+            using var cmd = c.CreateCommand();
+            cmd.Transaction = tx;
+            cmd.CommandText = """
+                CREATE TABLE agent_runs_new (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    debate_id INTEGER REFERENCES debates(id),
+                    agent_id TEXT NOT NULL,
+                    agent_name TEXT NOT NULL,
+                    round INTEGER NOT NULL,
+                    system_prompt TEXT NOT NULL,
+                    user_prompt TEXT NOT NULL,
+                    answer TEXT,
+                    model TEXT NOT NULL,
+                    input_tokens INTEGER,
+                    output_tokens INTEGER,
+                    cost_usd TEXT,
+                    duration_ms INTEGER NOT NULL,
+                    status TEXT NOT NULL,
+                    error TEXT,
+                    simulated INTEGER NOT NULL,
+                    created_at TEXT NOT NULL
+                );
+                INSERT INTO agent_runs_new (id, debate_id, agent_id, agent_name, round, system_prompt, user_prompt, answer, model,
+                    input_tokens, output_tokens, cost_usd, duration_ms, status, error, simulated, created_at)
+                SELECT id, NULLIF(debate_id, 0), agent_id, agent_name, round, system_prompt, user_prompt, answer, model,
+                    input_tokens, output_tokens, cost_usd, duration_ms, status, error, simulated, created_at
+                FROM agent_runs;
+                DROP TABLE agent_runs;
+                ALTER TABLE agent_runs_new RENAME TO agent_runs;
+                CREATE INDEX IF NOT EXISTS ix_runs_debate ON agent_runs(debate_id);
+                CREATE INDEX IF NOT EXISTS ix_runs_created ON agent_runs(created_at);
+                """;
+            cmd.ExecuteNonQuery();
+            tx.Commit();
+        }
     }
 
     // ---- writes ----

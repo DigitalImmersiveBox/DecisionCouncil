@@ -36,7 +36,8 @@ public sealed class Idea
 public sealed class AgentRun
 {
     public long Id { get; set; }
-    public long DebateId { get; set; }
+    /// <summary>Null for a test run from the Agents screen, which belongs to no debate but still counts towards usage.</summary>
+    public long? DebateId { get; set; }
     public string AgentId { get; set; } = "";
     public string AgentName { get; set; } = "";
     public DebateRound Round { get; set; }

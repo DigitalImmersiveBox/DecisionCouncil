@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.14" />
+  </ItemGroup>
+
+  <!-- Default agents, prompts and context. Embedded in the assembly (so a single-file exe carries them),
+       then seeded into the user's data folder on first run (existing files are never overwritten). -->
+  <ItemGroup>
+    <EmbeddedResource Include="..\..\defaults\**\*" LogicalName="defaults/%(RecursiveDir)%(Filename)%(Extension)" />
+  </ItemGroup>
+
+</Project>

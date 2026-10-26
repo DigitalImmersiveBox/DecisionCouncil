@@ -1,0 +1,26 @@
+# Build output
+bin/
+obj/
+publish/
+release/
+artifacts/
+*.pdb
+
+# Local data from test runs
+*.db
+*.db-shm
+*.db-wal
+
+# Personal working notes, not part of the app
+QUESTIONS-FOR-TOMORROW.md
+
+# IDE and OS
+.vs/
+.vscode/
+.idea/
+*.user
+*.suo
+*.DotSettings.user
+Thumbs.db
+desktop.ini
+.DS_Store

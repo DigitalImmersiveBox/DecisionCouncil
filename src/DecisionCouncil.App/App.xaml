@@ -1,0 +1,25 @@
+﻿<Application x:Class="DecisionCouncil.App.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:infra="clr-namespace:DecisionCouncil.App.Infrastructure"
+             ShutdownMode="OnMainWindowClose">
+  <Application.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <!-- Shared dib look (Session Deck); app-specific additions below -->
+        <ResourceDictionary Source="Theme/DibDark.xaml"/>
+      </ResourceDictionary.MergedDictionaries>
+
+      <infra:VisibleWhenConverter x:Key="VisibleWhen"/>
+      <infra:HexToBrushConverter x:Key="HexBrush"/>
+      <infra:VerdictBrushConverter x:Key="VerdictBrush"/>
+      <infra:ColumnStateBrushConverter x:Key="StateBrush"/>
+
+      <!-- Left navigation row, like an environment in Session Deck -->
+      <Style x:Key="NavItem" TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}">
+        <Setter Property="Foreground" Value="#B9BCC4"/>
+        <Setter Property="Margin" Value="6,0,6,0"/>
+      </Style>
+    </ResourceDictionary>
+  </Application.Resources>
+</Application>

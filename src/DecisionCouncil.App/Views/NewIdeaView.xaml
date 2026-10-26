@@ -1,0 +1,137 @@
+<UserControl x:Class="DecisionCouncil.App.Views.NewIdeaView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="clr-namespace:DecisionCouncil.App.Controls">
+  <Grid Margin="20,16,20,16">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+
+    <StackPanel Margin="0,0,0,14">
+      <TextBlock Text="New idea" Style="{StaticResource Title}"/>
+      <TextBlock Style="{StaticResource Subtitle}"
+                 Text="Describe the idea plainly. Each agent first answers alone, then reads the others and cross-examines them. The synthesis shows where they split. You decide."/>
+      <Border Style="{StaticResource Callout}" Margin="0,12,0,0" Visibility="{Binding ContextIsTemplate, Converter={StaticResource VisibleWhen}}">
+        <DockPanel>
+          <Button DockPanel.Dock="Right" Content="Fill in my context" Style="{StaticResource LinkButton}" Command="{Binding EditContextCommand}"/>
+          <TextBlock VerticalAlignment="Center" TextWrapping="Wrap" Foreground="{StaticResource Text.Body}"
+                     Text="Your context profile is still the empty template. Agents give much sharper advice when they know your business, projects and constraints."/>
+        </DockPanel>
+      </Border>
+      <Border Style="{StaticResource Callout}" BorderBrush="{StaticResource Status.NeedsYou}" Margin="0,10,0,0"
+              Visibility="{Binding AgentErrors, Converter={StaticResource VisibleWhen}}">
+        <TextBlock Text="{Binding AgentErrors}" TextWrapping="Wrap" Foreground="{StaticResource Text.Body}"/>
+      </Border>
+    </StackPanel>
+
+    <Grid Grid.Row="1">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="3*"/>
+        <ColumnDefinition Width="12"/>
+        <ColumnDefinition Width="2*" MinWidth="320"/>
+      </Grid.ColumnDefinitions>
+
+      <!-- The idea -->
+      <Border Style="{StaticResource Card}" Padding="16,14">
+        <Grid>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="2*" MinHeight="120"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*" MinHeight="70"/>
+          </Grid.RowDefinitions>
+          <DockPanel>
+            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Margin="0,-4,0,0">
+              <Button Content="Load sample idea" Style="{StaticResource LinkButton}" Command="{Binding LoadSampleCommand}"/>
+              <Button Content="Clear" Style="{StaticResource LinkButton}" Command="{Binding ClearCommand}"/>
+            </StackPanel>
+            <TextBlock Text="TITLE" Style="{StaticResource Heading}"/>
+          </DockPanel>
+          <TextBox Grid.Row="1" Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,14"/>
+          <TextBlock Grid.Row="2" Text="THE IDEA" Style="{StaticResource Heading}"/>
+          <TextBox Grid.Row="3" Style="{StaticResource MultiLine}" Text="{Binding IdeaText, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,14"/>
+          <StackPanel Grid.Row="4">
+            <TextBlock Text="EXTRA CONTEXT FOR THIS IDEA" Style="{StaticResource Heading}" Margin="0,0,0,2"/>
+            <TextBlock Style="{StaticResource Hint}" Margin="0,0,0,6"
+                       Text="Facts that matter only for this idea: a client's budget, a deadline, a quote you received."/>
+          </StackPanel>
+          <TextBox Grid.Row="5" Style="{StaticResource MultiLine}" Text="{Binding ExtraContext, UpdateSourceTrigger=PropertyChanged}"/>
+        </Grid>
+      </Border>
+
+      <!-- The council -->
+      <Border Grid.Column="2" Style="{StaticResource Card}" Padding="16,14">
+        <DockPanel>
+          <DockPanel DockPanel.Dock="Top" Margin="0,0,0,6">
+            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Margin="0,-3,-4,0">
+              <ItemsControl ItemsSource="{Binding Presets}" Focusable="False">
+                <ItemsControl.ItemsPanel>
+                  <ItemsPanelTemplate><StackPanel Orientation="Horizontal"/></ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                  <DataTemplate>
+                    <Button Content="{Binding Name}" Style="{StaticResource ChipToggle}"
+                            Command="{Binding DataContext.ApplyPresetCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                            CommandParameter="{Binding}"/>
+                  </DataTemplate>
+                </ItemsControl.ItemTemplate>
+              </ItemsControl>
+              <Button Content="None" Style="{StaticResource ChipToggle}" Command="{Binding SelectNoneCommand}"/>
+            </StackPanel>
+            <TextBlock Text="COUNCIL" Style="{StaticResource Heading}" Margin="0"/>
+          </DockPanel>
+          <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="-6,0,-6,0">
+            <ItemsControl ItemsSource="{Binding Agents}" Focusable="False">
+              <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                  <Border x:Name="Row" Background="Transparent" CornerRadius="6" Padding="8,8">
+                    <CheckBox IsChecked="{Binding IsSelected}" VerticalContentAlignment="Center">
+                      <DockPanel>
+                      <controls:CouncilAvatar DockPanel.Dock="Left" Avatar="{Binding Avatar}" AgentId="{Binding Id}" Color="{Binding Color}"
+                                              State="{Binding AvatarState}" PixelSize="2" ShowExtras="False" Margin="0,-4,8,0"
+                                              VerticalAlignment="Center"/>
+                      <StackPanel VerticalAlignment="Center">
+                        <TextBlock TextWrapping="Wrap">
+                          <Run Text="{Binding Name, Mode=OneWay}" FontWeight="SemiBold"/>
+                          <Run Text="  "/>
+                          <Run Text="{Binding Summary, Mode=OneWay}" FontSize="12" Foreground="{StaticResource Text.Secondary}"/>
+                        </TextBlock>
+                        <TextBlock Text="{Binding CoreQuestion}" FontSize="11.5" FontStyle="Italic" Foreground="{StaticResource Text.Faint}"
+                                   TextWrapping="Wrap" Margin="0,2,0,0"/>
+                      </StackPanel>
+                      </DockPanel>
+                    </CheckBox>
+                  </Border>
+                  <DataTemplate.Triggers>
+                    <Trigger SourceName="Row" Property="IsMouseOver" Value="True">
+                      <Setter TargetName="Row" Property="Background" Value="{StaticResource Bg.Hover}"/>
+                    </Trigger>
+                  </DataTemplate.Triggers>
+                </DataTemplate>
+              </ItemsControl.ItemTemplate>
+            </ItemsControl>
+          </ScrollViewer>
+        </DockPanel>
+      </Border>
+    </Grid>
+
+    <!-- Start bar -->
+    <Border Grid.Row="2" Style="{StaticResource Card}" Margin="0,12,0,0" Padding="16,10">
+      <DockPanel>
+        <Button DockPanel.Dock="Right" Style="{StaticResource PrimaryButton}" Command="{Binding StartCommand}" Padding="18,7,18,8">
+          <StackPanel Orientation="Horizontal">
+            <TextBlock Text="&#xE768;" FontFamily="{StaticResource Font.Icons}" FontSize="12" Margin="0,2,8,0"/>
+            <TextBlock Text="Start debate"/>
+          </StackPanel>
+        </Button>
+        <CheckBox DockPanel.Dock="Left" IsChecked="{Binding Round2}" Margin="0,0,24,0"
+                  Content="Round 2: cross-examination" ToolTip="Agents read each other's round-1 answers and say who they disagree with."/>
+        <TextBlock Text="{Binding CallSummary}" Style="{StaticResource Hint}" VerticalAlignment="Center"/>
+      </DockPanel>
+    </Border>
+  </Grid>
+</UserControl>

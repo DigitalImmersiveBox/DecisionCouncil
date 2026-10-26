@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\DecisionCouncil.Core\DecisionCouncil.Core.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <AssemblyName>DecisionCouncil</AssemblyName>
+    <RootNamespace>DecisionCouncil.App</RootNamespace>
+    <Version>1.0.0</Version>
+    <Product>Decision Council</Product>
+    <Company>Digital Immersive Box</Company>
+    <!-- Source art and the script that builds it: design/icon/final -->
+    <ApplicationIcon>Assets\app.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\app.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Tells the updater which release zip matches this build -->
+    <AssemblyMetadata Include="SelfContained" Value="$(SelfContained)" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,187 @@
+<UserControl x:Class="DecisionCouncil.App.Views.LiveDebateView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="clr-namespace:DecisionCouncil.App.Controls">
+  <UserControl.Resources>
+    <!-- Status chip that breathes while the agent is thinking -->
+    <Style x:Key="PulsingChip" TargetType="Border" BasedOn="{StaticResource Chip}">
+      <Style.Triggers>
+        <DataTrigger Binding="{Binding IsBusy}" Value="True">
+          <DataTrigger.EnterActions>
+            <BeginStoryboard x:Name="Breathe">
+              <Storyboard>
+                <DoubleAnimation Storyboard.TargetProperty="Opacity" From="1" To="0.45" Duration="0:0:0.7"
+                                 AutoReverse="True" RepeatBehavior="Forever"/>
+              </Storyboard>
+            </BeginStoryboard>
+          </DataTrigger.EnterActions>
+          <DataTrigger.ExitActions>
+            <StopStoryboard BeginStoryboardName="Breathe"/>
+          </DataTrigger.ExitActions>
+        </DataTrigger>
+      </Style.Triggers>
+    </Style>
+
+    <!-- One agent's card: colour stripe on the left, status chip, answer. Same build as a Session Deck card. -->
+    <DataTemplate x:Key="ColumnTemplate">
+      <Border Width="340" Margin="0,0,8,0" Style="{StaticResource Card}" Padding="0">
+        <Grid>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+          </Grid.ColumnDefinitions>
+          <Border Width="4" CornerRadius="7,0,0,7" Background="{Binding Color, Converter={StaticResource HexBrush}}"/>
+          <DockPanel Grid.Column="1">
+            <StackPanel DockPanel.Dock="Top" Margin="12,10,12,8">
+              <DockPanel>
+                <TextBlock DockPanel.Dock="Right" Text="{Binding Meta}" Style="{StaticResource Meta}" VerticalAlignment="Center" Margin="8,0,0,0"/>
+                <controls:CouncilAvatar DockPanel.Dock="Left" Avatar="{Binding Avatar}" AgentId="{Binding AgentId}" Color="{Binding Color}"
+                                        State="{Binding State}" PixelSize="2" ShowExtras="False" Margin="-6,-6,4,0" VerticalAlignment="Center"/>
+                <Border Style="{StaticResource PulsingChip}" Background="{Binding State, Converter={StaticResource StateBrush}}">
+                  <TextBlock Text="{Binding StateText}"/>
+                </Border>
+                <TextBlock Text="{Binding Name}" FontWeight="SemiBold" Margin="8,0,0,0" VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
+              </DockPanel>
+              <StackPanel Orientation="Horizontal" Margin="0,7,0,0" Visibility="{Binding Verdict, Converter={StaticResource VisibleWhen}}">
+                <Border Style="{StaticResource Chip}" Background="{Binding Verdict, Converter={StaticResource VerdictBrush}}">
+                  <TextBlock Text="{Binding Verdict}"/>
+                </Border>
+                <Border Style="{StaticResource Tag}" Margin="6,0,0,0" Visibility="{Binding Confidence, Converter={StaticResource VisibleWhen}}">
+                  <TextBlock>
+                    <Run Text="confidence"/>
+                    <Run Text="{Binding Confidence, Mode=OneWay}"/>
+                  </TextBlock>
+                </Border>
+              </StackPanel>
+            </StackPanel>
+            <Border DockPanel.Dock="Top" Height="1" Background="{StaticResource Line.Card}"/>
+            <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="12,10,8,10">
+              <StackPanel>
+                <TextBlock Text="{Binding Error}" Foreground="{StaticResource Status.NeedsYou}" TextWrapping="Wrap" Margin="0,0,0,8"
+                           Visibility="{Binding Error, Converter={StaticResource VisibleWhen}}"/>
+                <controls:MarkdownView Markdown="{Binding Answer}"/>
+              </StackPanel>
+            </ScrollViewer>
+          </DockPanel>
+        </Grid>
+      </Border>
+    </DataTemplate>
+
+    <DataTemplate x:Key="RoundTemplate">
+      <DockPanel Margin="0,10,0,0">
+        <TextBlock DockPanel.Dock="Top" Text="{Binding Note}" Style="{StaticResource Hint}" Margin="0,0,0,8"
+                   Visibility="{Binding Note, Converter={StaticResource VisibleWhen}}"/>
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled" Padding="0,0,0,6">
+          <ItemsControl ItemsSource="{Binding Columns}" ItemTemplate="{StaticResource ColumnTemplate}" Focusable="False">
+            <ItemsControl.ItemsPanel>
+              <ItemsPanelTemplate><StackPanel Orientation="Horizontal"/></ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+          </ItemsControl>
+        </ScrollViewer>
+      </DockPanel>
+    </DataTemplate>
+  </UserControl.Resources>
+
+  <DockPanel Margin="20,16,20,12">
+    <!-- Title and actions -->
+    <DockPanel DockPanel.Dock="Top">
+      <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Top">
+        <Button Content="Cancel" Style="{StaticResource DangerButton}" Command="{Binding CancelCommand}"
+                Visibility="{Binding IsRunning, Converter={StaticResource VisibleWhen}}"/>
+        <Button Content="New idea" Command="{Binding NewIdeaCommand}"
+                Visibility="{Binding IsRunning, Converter={StaticResource VisibleWhen}, ConverterParameter=invert}"/>
+        <Button Content="Open result" Style="{StaticResource PrimaryButton}" Command="{Binding OpenResultCommand}"
+                Visibility="{Binding IsRunning, Converter={StaticResource VisibleWhen}, ConverterParameter=invert}"/>
+      </StackPanel>
+      <StackPanel>
+        <TextBlock Text="{Binding Idea.Title}" Style="{StaticResource Title}" TextTrimming="CharacterEllipsis"/>
+        <TextBlock Text="{Binding Idea.Text}" Style="{StaticResource Subtitle}" MaxHeight="36" TextTrimming="CharacterEllipsis"/>
+      </StackPanel>
+    </DockPanel>
+
+    <!-- The stage, like Session Deck's banner: progress on the left, the council itself under a night sky -->
+    <Border DockPanel.Dock="Top" Style="{StaticResource Card}" Background="{StaticResource Bg.Banner}" Margin="0,12,0,0" Padding="0" ClipToBounds="True">
+      <Grid>
+        <controls:Starfield/>
+        <!-- floor line the council stands on -->
+        <Border Height="1" VerticalAlignment="Bottom" Margin="0,0,0,26" Background="{StaticResource Line.Card}"/>
+        <DockPanel Margin="16,10,16,6">
+          <StackPanel DockPanel.Dock="Left" Width="300" VerticalAlignment="Center" Margin="0,0,0,8">
+            <TextBlock Text="CALLS" Style="{StaticResource Heading}" Margin="0"/>
+            <TextBlock Margin="-1,-4,0,-3">
+              <Run Text="{Binding DoneCalls, Mode=OneWay}" FontFamily="{StaticResource Font.Figure}" FontSize="34"/>
+              <Run Text="{Binding TotalCalls, Mode=OneWay, StringFormat='/ {0}'}" FontFamily="{StaticResource Font.Figure}" FontSize="16" Foreground="{StaticResource Text.Soft}"/>
+            </TextBlock>
+            <TextBlock Text="{Binding Status}" FontSize="12" Foreground="{StaticResource Text.Secondary}" TextWrapping="Wrap" Margin="0,2,0,0"/>
+            <ProgressBar Maximum="{Binding TotalCalls}" Value="{Binding DoneCalls, Mode=OneWay}" Margin="0,7,0,0"/>
+            <TextBlock Style="{StaticResource Meta}" Margin="0,6,0,0">
+              <Run Text="●" Foreground="{StaticResource Status.Done}"/>
+              <Run Text="{Binding ProviderName, Mode=OneWay}"/>
+            </TextBlock>
+          </StackPanel>
+          <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled" Margin="20,0,0,0">
+            <ItemsControl ItemsSource="{Binding Stage}" Focusable="False" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+              <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate><StackPanel Orientation="Horizontal"/></ItemsPanelTemplate>
+              </ItemsControl.ItemsPanel>
+              <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                  <StackPanel Width="84" ToolTip="{Binding StateText}">
+                    <controls:CouncilAvatar Avatar="{Binding Avatar}" AgentId="{Binding AgentId}" Color="{Binding Color}"
+                                            State="{Binding State}" Verdict="{Binding Verdict}" PixelSize="3"
+                                            HorizontalAlignment="Center"/>
+                    <TextBlock Text="{Binding Name}" FontSize="10.5" Foreground="{StaticResource Text.Secondary}"
+                               HorizontalAlignment="Center" TextTrimming="CharacterEllipsis" Margin="0,6,0,0"/>
+                  </StackPanel>
+                </DataTemplate>
+              </ItemsControl.ItemTemplate>
+            </ItemsControl>
+          </ScrollViewer>
+        </DockPanel>
+      </Grid>
+    </Border>
+
+    <TabControl SelectedIndex="{Binding SelectedTab}" Margin="0,12,0,0">
+      <TabItem Header="{Binding Round1.Title}" Content="{Binding Round1}" ContentTemplate="{StaticResource RoundTemplate}"/>
+      <TabItem Header="{Binding Round2.Title}" Content="{Binding Round2}" ContentTemplate="{StaticResource RoundTemplate}"/>
+      <TabItem Header="{Binding Synthesis.Title}" Content="{Binding Synthesis}">
+        <TabItem.ContentTemplate>
+          <DataTemplate>
+            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Margin="0,10,0,0">
+              <ItemsControl ItemsSource="{Binding Columns}" MaxWidth="980" HorizontalAlignment="Left" Focusable="False">
+                <ItemsControl.ItemTemplate>
+                  <DataTemplate>
+                    <Border Style="{StaticResource Card}" Padding="0">
+                      <Grid>
+                        <Grid.ColumnDefinitions>
+                          <ColumnDefinition Width="Auto"/>
+                          <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Border Width="4" CornerRadius="7,0,0,7" Background="{StaticResource Accent.Primary}"/>
+                        <StackPanel Grid.Column="1" Margin="16,12,16,14">
+                          <DockPanel Margin="0,0,0,10">
+                            <TextBlock DockPanel.Dock="Right" Text="{Binding Meta}" Style="{StaticResource Meta}" VerticalAlignment="Center"/>
+                            <controls:CouncilAvatar DockPanel.Dock="Left" Avatar="dib" AgentId="synthesizer" Color="#D97757"
+                                                    State="{Binding State}" PixelSize="2" ShowExtras="False" Margin="-6,-6,4,0" VerticalAlignment="Center"/>
+                            <Border Style="{StaticResource PulsingChip}" Background="{Binding State, Converter={StaticResource StateBrush}}">
+                              <TextBlock Text="{Binding StateText}"/>
+                            </Border>
+                            <TextBlock Text="Synthesis" FontWeight="SemiBold" Margin="8,0,0,0" VerticalAlignment="Center"/>
+                            <TextBlock Text="no verdict, by design" Style="{StaticResource Meta}" Margin="10,1,0,0" VerticalAlignment="Center"/>
+                          </DockPanel>
+                          <TextBlock Text="{Binding Error}" Foreground="{StaticResource Status.NeedsYou}" TextWrapping="Wrap"
+                                     Visibility="{Binding Error, Converter={StaticResource VisibleWhen}}"/>
+                          <controls:MarkdownView Markdown="{Binding Answer}" FontSize="13.5"/>
+                        </StackPanel>
+                      </Grid>
+                    </Border>
+                  </DataTemplate>
+                </ItemsControl.ItemTemplate>
+              </ItemsControl>
+            </ScrollViewer>
+          </DataTemplate>
+        </TabItem.ContentTemplate>
+      </TabItem>
+    </TabControl>
+  </DockPanel>
+</UserControl>
